@@ -7,10 +7,6 @@
   <!-- Albert Sans from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
-  :root {
-    /* Fluid base font-size between 16px and 18px */
-    font-size: clamp(16px, 1.5vw + 1rem, 18px);
-  }
     /* Reset */
     *, *::before, *::after {
       margin: 0;
@@ -29,6 +25,16 @@
       background: #ffffff;
       color: #333;
       padding: clamp(1rem, 5vw, 7rem);
+      position: relative;
+      overflow: hidden;
+    }
+    #flock {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
     h1 {
       font-size: clamp(3rem, 8vw, 6rem);
@@ -60,11 +66,50 @@
   </style>
 </head>
 <body>
+  <canvas id="flock"></canvas>
   <h1>Starling Labs</h1>
   <p class="tagline">Something great is coming soon...</p>
   <div class="links">
     <a href="https://www.linkedin.com/in/suzannasmith/" target="_blank" rel="noopener">Suzanna Smith</a>
     <a href="https://www.linkedin.com/in/christianleszeknelson/" target="_blank" rel="noopener">Christian Nelson</a>
   </div>
+  <script type="module">
+      import FlockingSimulator from './flocking.js';
+
+      // Function to resize canvas
+      function resizeCanvas() {
+          const canvas = document.getElementById('flock');
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          if (window.sim) {
+              window.sim.width = canvas.width;
+              window.sim.height = canvas.height;
+          }
+      }
+
+      // Initialize with correct size
+      resizeCanvas();
+      
+      // Create simulator
+      window.sim = new FlockingSimulator('flock', {
+          boidCount: 900,
+          maxSpeed: 5.0,
+          maxForce: 0.06,
+          perceptionRadius: 100,
+          cohesionWeight: 0.8,
+          separationRadius: 40,
+          separationWeight: 2,
+          alignmentWeight: 0.5,
+          backgroundColor: '#fff',
+          boidColor: '#ddd'
+      });
+      
+      window.sim.start();
+      
+      // Resize canvas when window size changes
+      window.addEventListener('resize', () => {
+          resizeCanvas();
+      });
+  </script>
 </body>
 </html>
