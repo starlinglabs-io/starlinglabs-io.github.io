@@ -47972,6 +47972,7 @@ void main() {
     gl_FragColor = vec4( velocity, 1.0 );
 }`;
 var BOID_VERTEX = `uniform float clock;
+uniform vec3 color;
 
 attribute vec2 reference;
 attribute float birdVertex;
@@ -48012,7 +48013,7 @@ void main() {
 
     zcoordi = newPosition.z;
 
-    vertex_color = vec4( birdColor, 1.0 );
+    vertex_color = vec4( color, 1.0 );
     gl_Position = projectionMatrix *  viewMatrix  * vec4( newPosition, 1.0 );
 }`;
 
@@ -48159,7 +48160,7 @@ class Starlings {
     animate() {
         this._rafId = requestAnimationFrame(this.animate.bind(this));
         this.render();
-        this.stats.update();
+        if (this.stats) this.stats.update();
     }
 
     // Render frame
@@ -48239,6 +48240,18 @@ class Starlings {
         }
     }
 
+    // Handle window resize events
+    onWindowResize() {
+        const rect = this.container.getBoundingClientRect();
+        const width = rect.width || window.innerWidth;
+        const height = rect.height || window.innerHeight;
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(width, height);
+        this.halfX = width / 2;
+        this.halfY = height / 2;
+    }
+
     // Initialize Three.js scene, camera, renderer, lights, controls, stats, and event listeners
     initScene() {
         // create wrapper div and attach to container
@@ -48287,13 +48300,16 @@ class Starlings {
         this.scene.add(this.spotLight);
 
         // stats monitor
-        this.stats = new Stats();
-        wrapper.appendChild(this.stats.dom);
+        if (this.options.showInfo) {
+            this.stats = new Stats();
+            wrapper.appendChild(this.stats.dom);
+        }
 
         // event listeners on wrapper
         this.wrapper.addEventListener('mousemove', this.onDocumentMouseMove.bind(this), false);
         this.wrapper.addEventListener('touchstart', this.onDocumentTouchStart.bind(this), false);
         this.wrapper.addEventListener('touchmove', this.onDocumentTouchMove.bind(this), false);
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
     }
 
     // Fill a texture with initial boid positions

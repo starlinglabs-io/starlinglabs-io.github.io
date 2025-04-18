@@ -66,6 +66,7 @@
       color: #0066cc;
       font-size: clamp(1rem, 3vw, 1.5rem);
       font-weight: 400;
+      align-self: flex-start;
     }
 
     .links a:hover {
@@ -83,7 +84,7 @@
 <div id="flock"></div>
 <script src="starlings.full.js"></script>
 <script>
-    const sim = new Starlings('#flock', { birds: 2048 });
+    const sim = new Starlings('#flock', { birds: 4096, birdColor: '#bbb', showInfo: false });
     sim.start();
 </script>
 </body>
