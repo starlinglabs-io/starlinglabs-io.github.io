@@ -1,4 +1,4 @@
-// flocking.js
+// flocking3d.js
 export default class FlockingSimulator {
     constructor(canvas, opts = {}) {
         // Canvas setup

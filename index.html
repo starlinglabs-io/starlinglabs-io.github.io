@@ -13,9 +13,11 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
     }
+
     body {
       font-family: 'Albert Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       display: flex;
@@ -28,6 +30,7 @@
       position: relative;
       overflow: hidden;
     }
+
     #flock {
       position: absolute;
       top: 0;
@@ -36,17 +39,20 @@
       height: 100%;
       z-index: -1;
     }
+
     h1 {
       font-size: clamp(3rem, 8vw, 6rem);
       margin-bottom: 0.5rem;
       font-weight: 900; /* Black weight */
     }
+
     .tagline {
       font-size: clamp(1rem, 4vw, 3rem);
       margin-bottom: 1.5rem;
       font-weight: 500;
       margin-left: 2px;
     }
+
     .links {
       margin-top: 4rem;
       margin-left: 3px;
@@ -54,62 +60,31 @@
       flex-direction: column;
       gap: clamp(0.1rem, 2vw, 0.2rem);
     }
+
     .links a {
       text-decoration: none;
       color: #0066cc;
       font-size: clamp(1rem, 3vw, 1.5rem);
       font-weight: 400;
     }
+
     .links a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <canvas id="flock"></canvas>
-  <h1>Starling Labs</h1>
-  <p class="tagline">Something great is coming soon...</p>
-  <div class="links">
-    <a href="https://www.linkedin.com/in/suzannasmith/" target="_blank" rel="noopener">Suzanna Smith</a>
-    <a href="https://www.linkedin.com/in/christianleszeknelson/" target="_blank" rel="noopener">Christian Nelson</a>
-  </div>
-  <script type="module">
-      import FlockingSimulator from './flocking.js';
-
-      // Function to resize canvas
-      function resizeCanvas() {
-          const canvas = document.getElementById('flock');
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          if (window.sim) {
-              window.sim.width = canvas.width;
-              window.sim.height = canvas.height;
-          }
-      }
-
-      // Initialize with correct size
-      resizeCanvas();
-      
-      // Create simulator
-      window.sim = new FlockingSimulator('flock', {
-          boidCount: 900,
-          maxSpeed: 5.0,
-          maxForce: 0.06,
-          perceptionRadius: 100,
-          cohesionWeight: 0.8,
-          separationRadius: 40,
-          separationWeight: 2,
-          alignmentWeight: 0.5,
-          backgroundColor: '#fff',
-          boidColor: '#ddd'
-      });
-      
-      window.sim.start();
-      
-      // Resize canvas when window size changes
-      window.addEventListener('resize', () => {
-          resizeCanvas();
-      });
-  </script>
+<h1>Starling Labs</h1>
+<p class="tagline">Something great is coming soon...</p>
+<div class="links">
+  <a href="https://www.linkedin.com/in/suzannasmith/" target="_blank" rel="noopener">Suzanna Smith</a>
+  <a href="https://www.linkedin.com/in/christianleszeknelson/" target="_blank" rel="noopener">Christian Nelson</a>
+</div>
+<div id="flock"></div>
+<script src="starlings.full.js"></script>
+<script>
+    const sim = new Starlings('#flock', { birds: 2048 });
+    sim.start();
+</script>
 </body>
 </html>
