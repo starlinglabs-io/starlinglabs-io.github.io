@@ -4,31 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Starling Labs</title>
-  <!-- Albert Sans from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- SEO Meta -->
+  <meta name="description"
+        content="Starling Labs helps teams build better products—faster and with less friction—by focusing on what matters most: the humans doing the work.">
+  <meta name="theme-color" content="#FF9F39">
+
+  <!-- Favicon: SVG first, PNG fallback -->
+  <link rel="icon" type="image/svg+xml" href="starling-favicon.svg">
+  <link rel="alternate icon" type="image/png" href="starling-favicon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
+
   <style>
-    /* Reset */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --text-color: #3c3c3c;
     }
 
-    html, body {
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
       height: 100%;
     }
 
     body {
-      font-family: 'Albert Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      line-height: 1.5;
-      background: #ffffff;
-      color: #333;
-      padding: clamp(1rem, 5vw, 7rem);
       position: relative;
       overflow: hidden;
+      padding: clamp(1rem, 5vw, 7rem);
+      font-family: 'Gabarito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-color);
     }
 
     #flock {
@@ -38,54 +56,76 @@
       width: 100%;
       height: 100%;
       z-index: -1;
+      background: linear-gradient(200deg, #ff9f39 0%, #ffe4e4 100%);
     }
 
     h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
       margin-bottom: 0.5rem;
+      font-size: clamp(3rem, 10.66vw, 6rem);
       font-weight: 900; /* Black weight */
     }
 
     .tagline {
-      font-size: clamp(1rem, 4vw, 3rem);
       margin-bottom: 1.5rem;
-      font-weight: 500;
-      margin-left: 2px;
+      margin-left: 0.125rem;
+      /*max-width: 70vw;*/
+      margin-right: 20vw;
+      color: var(--text-color);
+      font-size: clamp(0.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    .tagline-emphasized {
+      font-weight: 700;
     }
 
     .links {
-      margin-top: 4rem;
-      margin-left: 3px;
       display: flex;
       flex-direction: column;
-      gap: clamp(0.1rem, 2vw, 0.2rem);
+      gap: clamp(0.2rem, 2vw, 0.5rem);
+      margin-top: 4rem;
+      margin-left: 0.1875rem;
     }
 
     .links a {
-      text-decoration: none;
-      color: #0066cc;
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      font-weight: 400;
       align-self: flex-start;
+      color: var(--text-color);
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      font-weight: 400;
+      text-decoration: none;
     }
 
     .links a:hover {
       text-decoration: underline;
     }
+
+    .links-icon {
+      margin-bottom: 0.625em;
+    }
   </style>
 </head>
 <body>
 <h1>Starling Labs</h1>
-<p class="tagline">We help build great teams and compelling products.</p>
+
+<p class="tagline"><span class="tagline-emphasized">We help teams build better products — faster and with less friction — by focusing on what matters most: the humans doing the work.</span>
+  Whether your team needs strategy, momentum, or a fresh start, we bring grounded leadership, clarity, and calm to messy
+  product challenges.</p>
+
 <div class="links">
+  <img src="linkedin.svg" alt="LinkedIn" width="24" height="24" class="links-icon">
   <a href="https://www.linkedin.com/in/suzannasmith/" target="_blank" rel="noopener">Suzanna Smith</a>
   <a href="https://www.linkedin.com/in/christianleszeknelson/" target="_blank" rel="noopener">Christian Nelson</a>
 </div>
+
 <div id="flock"></div>
-<script src="starlings.bundle.min.js"></script>
-<script>
-    const sim = new Starlings('#flock', {birds: 4096, birdColor: '#aaa'});
-    sim.start();
+
+<script src="starlings.bundle.min.js" defer></script>
+<script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sim = new Starlings('#flock', {birds: 4096, birdColor: '#aaa', transparent: true});
+        sim.start();
+    });
 </script>
 </body>
 </html>
